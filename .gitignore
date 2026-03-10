@@ -1,0 +1,45 @@
+# General
+.DS_Store
+.env
+.env.local
+.env.*.local
+*.log
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.python-version
+
+# Binary Assets & Office Documents (Human-generated or Demo Assets)
+*.pptx
+*.docx
+*.pdf
+*.xlsx
+*.csv
+*.text
+*.txt
+!requirements.txt
+!ui_prompt_for_stitch.txt
+
+# Project Specific Human-generated Data
+extracted_ppt.txt
+scanned_license.text
+temp_license.*
+provider_input.csv
+pip_list.txt
+
+# Node / Next.js (Project-wide)
+**/node_modules/
+**/.next/
+**/out/
+**/build/
+
+# User requested exclusions (Work in Progress)
+README.md
+README.html
+ui_prompt_for_stitch.txt

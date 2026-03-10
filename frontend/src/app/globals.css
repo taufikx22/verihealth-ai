@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #0a2642;
+  --color-accent: #3b82f6;
+  --color-background-light: #f6f7f8;
+  --color-background-dark: #0a0f14;
+  --color-card-dark: #16202a;
+  --color-slate-custom: #1e293b;
+  --color-panel-dark: #121a21;
+  --color-border-dark: #263645;
+  --color-accent-success: #0bda5b;
+  --color-accent-warning: #f59e0b;
+  --color-accent-danger: #ef4444;
+
+  --font-display: 'Inter', sans-serif;
+}
+
+@utility glass-card {
+  background: rgba(22, 32, 42, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@utility custom-scrollbar {
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #263645;
+    border-radius: 10px;
+  }
+}
+
+html, body {
+  height: 100%;
+}
