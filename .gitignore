@@ -46,3 +46,6 @@ ui_prompt_for_stitch.txt
 VeriHealth_AI_Proposal.md
 read_pptx.py
 requirements.txt
+app.py
+ui-references/
+
