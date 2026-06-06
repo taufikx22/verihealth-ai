@@ -48,4 +48,6 @@ read_pptx.py
 requirements.txt
 app.py
 ui-references/
+generate_pdf.py
+
 
