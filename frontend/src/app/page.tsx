@@ -182,7 +182,7 @@ export default function Home() {
             </div>
           </div>
           <div className="max-w-[1200px] mx-auto mt-12 pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500 dark:text-slate-500">
-            <p>© 2024 VeriHealth AI. All rights reserved.</p>
+            <p>© 2026 VeriHealth AI. All rights reserved.</p>
             <div className="flex gap-6">
               <Link href="#" className="hover:text-primary transition-colors">Twitter</Link>
               <Link href="#" className="hover:text-primary transition-colors">LinkedIn</Link>

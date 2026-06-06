@@ -128,13 +128,26 @@ def read_csv_content():
 
 def run_agents():
     csv_data = read_csv_content()
+    return _run_crew(csv_data, "temp_license.pdf")
+
+
+def run_agents_with_data(csv_content: str, pdf_path: str):
+    """
+    Run the CrewAI agent pipeline with provided data.
+    Returns the raw CrewAI result. The caller should parse it.
+    """
+    return _run_crew(csv_content, pdf_path)
+
+
+def _run_crew(csv_data: str, pdf_path: str):
+    """Internal: execute the CrewAI multi-agent workflow."""
     task_validate = Task(
         description=f"Analyze this CSV:\n{csv_data}\n1. Verify identities and addresses against NPI records using NPITool. 2. Identify missing licenses.",
         expected_output="List of discrepancies and verified facts found.",
         agent=validation_agent
     )
     task_enrich = Task(
-        description="For any providers missing a license, use the 'Document Parser (PDF)' tool to read 'temp_license.pdf'. Extract the Provider License Number from the text securely.",
+        description=f"For any providers missing a license, use the 'Document Parser (PDF)' tool to read '{pdf_path}'. Extract the Provider License Number from the text securely.",
         expected_output="Extracted License Numbers corresponding to the providers missing them.",
         agent=enrichment_agent
     )
@@ -150,6 +163,7 @@ def run_agents():
         process=Process.sequential
     )
     return techathon_crew.kickoff()
+
 
 if __name__ == "__main__":
     run_agents()
