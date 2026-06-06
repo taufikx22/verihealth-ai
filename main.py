@@ -7,10 +7,9 @@ import os
 import platform
 import signal
 
-# Windows compatibility fix for signals used by CrewAI
+# Signal compatibility fallback for Windows (CrewAI)
 if platform.system() == "Windows":
-    unix_signals = ['SIGHUP', 'SIGTSTP', 'SIGCONT', 'SIGUSR1', 'SIGUSR2', 'SIGCHLD', 'SIGQUIT', 'SIGSTOP']
-    for sig in unix_signals:
+    for sig in ['SIGHUP', 'SIGTSTP', 'SIGCONT', 'SIGUSR1', 'SIGUSR2', 'SIGCHLD', 'SIGQUIT', 'SIGSTOP']:
         if not hasattr(signal, sig):
             setattr(signal, sig, 1)
 
@@ -30,7 +29,7 @@ from models import (
 )
 import store
 
-# ── Directory for uploaded files ────────────────────────────────
+# Storage for uploads
 UPLOAD_DIR = Path("uploads")
 UPLOAD_DIR.mkdir(exist_ok=True)
 
@@ -40,7 +39,7 @@ app = FastAPI(
     version="2.0.0",
 )
 
-# Allow CORS for Next.js frontend
+# CORS setup for frontend dev server
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000", "http://127.0.0.1:3000", "*"],
@@ -50,14 +49,14 @@ app.add_middleware(
 )
 
 
-# ── Health check ────────────────────────────────────────────────
+# Health check endpoint
 
 @app.get("/api/health")
 async def health_check():
     return {"status": "ok", "service": "VeriHealth AI", "version": "2.0.0"}
 
 
-# ── Dashboard Statistics ────────────────────────────────────────
+# Dashboard stats API
 
 @app.get("/api/stats", response_model=DashboardStats)
 async def get_stats():
@@ -65,7 +64,7 @@ async def get_stats():
     return store.get_dashboard_stats()
 
 
-# ── Batch Endpoints ─────────────────────────────────────────────
+# Batch retrieval endpoints
 
 @app.get("/api/batches", response_model=list[BatchSummary])
 async def list_batches():
@@ -100,7 +99,7 @@ async def get_batch_document(batch_id: str):
     return FileResponse(pdf_path, media_type="application/pdf", filename="license.pdf")
 
 
-# ── Provider Actions ────────────────────────────────────────────
+# Provider review actions
 
 @app.post("/api/providers/{provider_id}/action", response_model=ProviderRecord)
 async def provider_action(provider_id: str, action: ProviderAction):
@@ -111,7 +110,7 @@ async def provider_action(provider_id: str, action: ProviderAction):
     return updated
 
 
-# ── Process Batch (Upload + AI Agents) ──────────────────────────
+# Ingestion pipeline (CSV + PDF Upload)
 
 @app.post("/api/process_batch", response_model=ProcessingResult)
 async def process_batch(

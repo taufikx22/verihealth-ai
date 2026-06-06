@@ -11,7 +11,7 @@ from models import (
     DashboardStats
 )
 
-# ── In-memory stores ────────────────────────────────────────────
+# Local in-memory state
 _batches: dict[str, BatchDetail] = {}
 _uploaded_pdfs: dict[str, str] = {}  # batch_id -> file path on disk
 
@@ -25,7 +25,7 @@ def _generate_provider_id() -> str:
     return uuid.uuid4().hex[:8]
 
 
-# ── CRUD helpers ────────────────────────────────────────────────
+# Data access helpers
 
 def get_all_batches() -> list[BatchSummary]:
     """Return summary view of all batches, newest first."""
@@ -149,14 +149,14 @@ def get_dashboard_stats() -> DashboardStats:
     )
 
 
-# ── Seed demo data ──────────────────────────────────────────────
+# Demo dataset seeding
 
 def _seed_demo_data():
     """Pre-populate the store with realistic demo batches."""
 
     now = datetime.now()
 
-    # ── Batch 1: Completed (1 hour ago) ─────────────────────────
+    # Batch 1 (recent)
     batch1_id = "VP-9020"
     batch1_providers = [
         ProviderRecord(
@@ -243,7 +243,7 @@ def _seed_demo_data():
         providers=batch1_providers,
     )
 
-    # ── Batch 2: Completed (yesterday) ──────────────────────────
+    # Batch 2 (historical)
     batch2_id = "VP-9019"
     batch2_providers = [
         ProviderRecord(
@@ -308,7 +308,7 @@ def _seed_demo_data():
         providers=batch2_providers,
     )
 
-    # ── Batch 3: Completed (3 days ago) ─────────────────────────
+    # Batch 3 (historical with flagged items)
     batch3_id = "VP-9018"
     batch3_providers = [
         ProviderRecord(

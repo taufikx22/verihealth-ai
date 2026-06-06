@@ -5,7 +5,7 @@
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
-// ── Types ──────────────────────────────────────────────────────
+// Types
 
 export interface ProviderRecord {
   id: string;
@@ -64,7 +64,7 @@ export interface ProcessingResult {
   message: string;
 }
 
-// ── API Functions ──────────────────────────────────────────────
+// API Functions
 
 export async function fetchStats(): Promise<DashboardStats> {
   const res = await fetch(`${API_BASE}/api/stats`);
